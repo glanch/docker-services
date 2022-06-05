@@ -5,7 +5,7 @@
   outputs = { self, nixpkgs, nixpkgsFork }@inputs:
     {
       nixosModule = { ... }: {
-        imports = [ ./docker-services.nix ];
+        imports = [ "${nixpkgsFork}/nixos/modules/virtualisation/oci-containers.nix" ./docker-services.nix ];
       };
     };
 }
