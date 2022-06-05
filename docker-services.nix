@@ -1,4 +1,4 @@
-{ config, options, lib, pkgs, ... }:
+{ config, options, lib, pkgs, nixpkgsFork, ... }:
 
 with lib;
 let
@@ -138,6 +138,9 @@ let
 
 in
 {
+  disabledModules = ["virtualisation/oci-containers.nix"];
+  imports = [ "${nixpkgsFork}/nixos/modules/virtualisation/oci-containers.nix" ];
+
   options.virtualisation.dockerServices = {
     services = mkOption {
       default = { };
