@@ -124,13 +124,17 @@ let
         ''
           # Put a true at the end to prevent getting non-zero return code, which will
           # crash the whole service.
-          check=$(${dockercli} network ls | grep "${fullNetworkName}" || true)
+          check=$(${dockercli} network ls | grep "${escapeShellArg ullNetworkName}" || true)
           if [ -z "$check" ]; then
-            ${dockercli} network create ${fullNetworkName} --subnet ${network.subnet}
+            ${dockercli} network create ${escapeShellArg fullNetworkName} --subnet ${escapeShellArg network.subnet}
           else
-            echo "${fullNetworkName} already exists in docker"
+            echo "${escapeShellArg fullNetworkName} already exists in docker"
           fi
         '';
+
+      # Remove network on post stop
+      postStop = ''docker network rm "${escapeShellArg fullNetworkName}"'';
+      
     };
   mkNetworkCreateService = serviceName: networkName: network:
     mkGlobalNetworkCreateService "${serviceName}-${networkName}" network;
