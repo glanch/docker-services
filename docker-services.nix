@@ -132,7 +132,7 @@ let
         '';
 
       # Remove network on post stop
-      postStop = ''${dockercli} network rm "${escapeShellArg fullNetworkName}"'';
+      postStop = ''${dockercli} network rm ${escapeShellArg fullNetworkName}'';
       
     };
   mkNetworkCreateService = serviceName: networkName: network:
