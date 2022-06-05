@@ -144,8 +144,8 @@
 
         in
         {
-          disabledModules = [ "virtualisation/oci-containers.nix" ];
-          imports = [ "${nixpkgsFork}/nixos/modules/virtualisation/oci-containers.nix" ];
+          # disabledModules = [ "virtualisation/oci-containers.nix" ];
+          # imports = [ "${nixpkgsFork}/nixos/modules/virtualisation/oci-containers.nix" ];
 
           options.virtualisation.dockerServices = {
             services = mkOption {
