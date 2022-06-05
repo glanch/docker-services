@@ -124,7 +124,7 @@ let
         ''
           # Put a true at the end to prevent getting non-zero return code, which will
           # crash the whole service.
-          check=$(${dockercli} network ls | grep "${escapeShellArg ullNetworkName}" || true)
+          check=$(${dockercli} network ls | grep "${escapeShellArg fullNetworkName}" || true)
           if [ -z "$check" ]; then
             ${dockercli} network create ${escapeShellArg fullNetworkName} --subnet ${escapeShellArg network.subnet}
           else
