@@ -109,6 +109,7 @@ let
   mkGlobalNetworkCreateService = networkName: network:
     let
       fullNetworkName = mkFullGlobalNetworkName networkName;
+      dockercli = "${config.virtualisation.docker.package}/bin/docker";
     in
     {
       description = "Create the docker network ${fullNetworkName}";
@@ -119,8 +120,6 @@ let
       serviceConfig.RemainAfterExit = true;
 
       script =
-        let dockercli = "${config.virtualisation.docker.package}/bin/docker";
-        in
         ''
           # Put a true at the end to prevent getting non-zero return code, which will
           # crash the whole service.
@@ -133,7 +132,7 @@ let
         '';
 
       # Remove network on post stop
-      postStop = ''docker network rm "${escapeShellArg fullNetworkName}"'';
+      postStop = ''${dockercli} network rm "${escapeShellArg fullNetworkName}"'';
       
     };
   mkNetworkCreateService = serviceName: networkName: network:
